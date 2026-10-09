@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Published as a separate distribution; the import name stays `rank_bm25`.
+name = "fitzyracing-rank-bm25"
+version = "0.2.3"
+description = "Various BM25 algorithms for document ranking (maintained fork of rank-bm25 with the empty-corpus and half-corpus idf fixes)"
+readme = { file = "README.md", content-type = "text/markdown" }
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "D. Brown", email = "dorianstuartbrown@gmail.com" }]
+maintainers = [{ name = "Joshua Almeida", email = "fitzyracing1@gmail.com" }]
+keywords = ["bm25", "okapi", "ranking", "search", "information retrieval", "rag", "rank_bm25", "fork"]
+requires-python = ">=3.8"
+dependencies = ["numpy"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing :: Indexing",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/fitzyracing1/rank_bm25"
+Source = "https://github.com/fitzyracing1/rank_bm25"
+Issues = "https://github.com/fitzyracing1/rank_bm25/issues"
+Changelog = "https://github.com/fitzyracing1/rank_bm25/blob/master/CHANGELOG.md"
+Upstream = "https://github.com/dorianbrown/rank_bm25"
+"360 Bench" = "https://github.com/fitzyracing1/360-bench"
+
+[tool.setuptools]
+py-modules = ["rank_bm25"]

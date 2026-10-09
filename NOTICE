@@ -1,0 +1,16 @@
+Rank-BM25
+Copyright Dorian Brown and the rank_bm25 contributors.
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+Original project: https://github.com/dorianbrown/rank_bm25
+
+fitzyracing-rank-bm25 (part of 360 Bench, https://github.com/fitzyracing1/360-bench)
+Modifications copyright 2026 Joshua Almeida, also under the Apache License, Version 2.0.
+
+This distribution is rank-bm25 0.2.2 with these changes:
+- rank_bm25.py: an empty corpus raises EmptyCorpusException (a ValueError and
+  ZeroDivisionError subclass) with a clear message, instead of a bare ZeroDivisionError.
+- rank_bm25.py: BM25Okapi gives terms that occur in exactly half of the documents the
+  existing epsilon idf floor (when that floor is positive) instead of an idf of 0.
+- Packaging: pyproject.toml replaces setup.py/version.py; distribution name
+  fitzyracing-rank-bm25; import name unchanged.
+- Tests: tests/test_fork_fixes.py; README, CHANGELOG and this NOTICE.

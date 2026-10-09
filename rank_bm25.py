@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Modified for fitzyracing-rank-bm25 (360 Bench), 2026: see NOTICE and CHANGELOG.md.
 
 import math
 import numpy as np
@@ -10,6 +11,14 @@ Trotmam et al, Improvements to BM25 and Language Models Examined
 
 Here we implement all the BM25 variations mentioned. 
 """
+
+
+class EmptyCorpusException(ValueError, ZeroDivisionError):
+    """Raised when a BM25 index is created from an empty corpus.
+
+    It subclasses ZeroDivisionError so code written for rank-bm25 0.2.2, which raised a bare
+    ZeroDivisionError here, still catches it.
+    """
 
 
 class BM25:
@@ -48,6 +57,9 @@ class BM25:
                     nd[word] = 1
 
             self.corpus_size += 1
+
+        if self.corpus_size == 0:
+            raise EmptyCorpusException("Cannot build a BM25 index from an empty corpus")
 
         self.avgdl = num_doc / self.corpus_size
         return nd
@@ -92,17 +104,27 @@ class BM25Okapi(BM25):
         # collect words with negative idf to set them a special epsilon value.
         # idf can be negative if word is contained in more than half of documents
         negative_idfs = []
+        # idf is exactly 0 if word is contained in exactly half of the documents
+        half_idfs = []
         for word, freq in nd.items():
             idf = math.log(self.corpus_size - freq + 0.5) - math.log(freq + 0.5)
             self.idf[word] = idf
             idf_sum += idf
             if idf < 0:
                 negative_idfs.append(word)
+            elif 2 * freq == self.corpus_size:
+                half_idfs.append(word)
         self.average_idf = idf_sum / len(self.idf)
 
         eps = self.epsilon * self.average_idf
         for word in negative_idfs:
             self.idf[word] = eps
+        # Give words in exactly half of the documents the same floor as words in more than
+        # half, instead of 0 (which made matching documents score 0). Only when the floor is
+        # positive, so it can never rank matching documents below non-matching ones.
+        if eps > 0:
+            for word in half_idfs:
+                self.idf[word] = eps
 
     def get_scores(self, query):
         """
