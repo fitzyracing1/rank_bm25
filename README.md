@@ -216,3 +216,8 @@ bm25.get_top_n(tokenized_query, corpus, n=1)
 # ['It is quite windy in London']
 ```
 And that's pretty much it!
+
+## Documentation
+
+- In-repo docs: [docs/](docs/index.md)
+- Wiki: [https://github.com/fitzyracing1/rank_bm25/wiki](https://github.com/fitzyracing1/rank_bm25/wiki)
