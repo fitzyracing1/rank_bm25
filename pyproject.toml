@@ -44,6 +44,7 @@ Issues = "https://github.com/fitzyracing1/rank_bm25/issues"
 Changelog = "https://github.com/fitzyracing1/rank_bm25/blob/master/CHANGELOG.md"
 Upstream = "https://github.com/dorianbrown/rank_bm25"
 "360 Bench" = "https://github.com/fitzyracing1/360-bench"
+Funding = "https://github.com/sponsors/fitzyracing1"
 
 [tool.setuptools]
 py-modules = ["rank_bm25"]
